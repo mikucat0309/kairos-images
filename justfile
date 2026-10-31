@@ -1,13 +1,13 @@
 arch := "amd64"
 
 version := "0.1.0"
-alpine_version := "3.24.3"
+alpine_version := "3.24"
 kairos_init_version := "v0.17.3"
 kubesolo_version := "v1.2.3"
 auroraboot_version := "v0.27.1"
 
 image_repo := "ghcr.io/mikucat0309/kairos"
-image_tag := version + "-" + arch + "-alpine-" + alpine_version + "-kubesolo-" + kubesolo_version
+image_tag := alpine_version + "-core-" + arch + "-generic-" + version + "-kubesolo-" + kubesolo_version
 image := image_repo + ":" + image_tag
 auroraboot := "quay.io/kairos/auroraboot:" + auroraboot_version
 build_dir := justfile_directory() / "build"
