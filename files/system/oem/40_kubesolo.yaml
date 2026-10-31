@@ -1,0 +1,14 @@
+name: "KubeSolo"
+stages:
+  rootfs:
+    - if: '[ ! -f "/run/cos/recovery_mode" ] && [ ! -e "/run/cos/uki_install_mode" ] && [ ! -e "/run/cos/autoreset_mode" ]'
+      name: "Persist /var/lib/kubesolo and /etc/kubesolo"
+      environment_file: /run/cos/extra-layout.env
+      environment:
+        PERSISTENT_STATE_PATHS: "/var/lib/kubesolo /etc/kubesolo"
+  boot:
+    - if: '[ ! -e "/run/cos/live_mode" ] && [ ! -f "/run/cos/recovery_mode" ] && [ ! -e "/run/cos/uki_install_mode" ] && [ ! -e "/run/cos/autoreset_mode" ] && [ "$(kairos-agent config get kubesolo.enabled)" = "true" ]'
+      name: "Start KubeSolo when the cloud-config enables it"
+      only_service_manager: "openrc"
+      commands:
+        - rc-service kubesolo start

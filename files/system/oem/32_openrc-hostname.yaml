@@ -1,0 +1,9 @@
+name: "Machine ID before hostname on OpenRC"
+stages:
+  initramfs.before:
+    - name: "Create the machine ID"
+      only_service_manager: "openrc"
+      if: '[ ! -f "/run/cos/recovery_mode" ] && [ ! -s /etc/machine-id ]'
+      commands:
+        - dbus-uuidgen --ensure
+        - cat /var/lib/dbus/machine-id > /etc/machine-id

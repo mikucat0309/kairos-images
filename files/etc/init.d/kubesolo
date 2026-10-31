@@ -1,0 +1,17 @@
+#!/sbin/openrc-run
+
+name="kubesolo"
+description="KubeSolo single-node Kubernetes distribution"
+command="/usr/bin/kubesolo"
+command_args="--config=/etc/kubesolo/config.yaml"
+command_background=true
+pidfile="/var/run/${RC_SVCNAME}.pid"
+command_user="root"
+retry="SIGTERM/90/SIGKILL/5"
+output_logger="logger -t kubesolo -p daemon.info"
+error_logger="logger -t kubesolo -p daemon.info"
+
+depend() {
+    need net cgroups
+    after firewall
+}

@@ -1,0 +1,11 @@
+apiVersion: kubesolo.io/v1alpha1
+kind: Config
+path: /var/lib/kubesolo
+
+storage:
+  localPath:
+    enabled: true
+
+network:
+  loadBalancer:
+    enabled: true
